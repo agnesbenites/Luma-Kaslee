@@ -1,31 +1,14 @@
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/lib/auth";
+import { auth } from "@/auth";
 import { redirect } from "next/navigation";
+import LandingPage from "@/LandingPage";
 
 export default async function HomePage() {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
 
-  // Se não estiver logado, manda para a SUA tela roxa, NÃO para a do NextAuth
-  if (!session) {
-    redirect("/login");
-  }
+  if (!session) return <LandingPage />;
 
-  // Se estiver logado, redireciona conforme o cargo (Role)
   const role = (session.user as any)?.role;
-
-  if (role === "ESCOLA") {
-    redirect("/dashboard/escola/visao-geral");
-  } else if (role === "PROFESSOR") {
-    redirect("/dashboard/professor/agenda");
-  } else {
-    // Caso seja aluno ou família
-    redirect("/dashboard");
-  }
-
-  // Caso o redirecionamento falhe por algum motivo
-  return (
-    <main className="p-8">
-      <h1>Carregando seu painel...</h1>
-    </main>
-  );
+  if (role === "ESCOLA") redirect("/dashboard/escola/visao-geral");
+  else if (role === "PROFESSOR") redirect("/dashboard/professor/agenda");
+  else redirect("/dashboard");
 }

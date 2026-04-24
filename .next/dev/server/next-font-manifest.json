@@ -1,26 +1,5 @@
 {
   "app": {
-    "[project]/src/app/_not-found/page": [
-      "static/media/caa3a2e1cccd8315-s.p.16t1db8_9y2o~.woff2"
-    ],
-    "[project]/src/app/dashboard/escola/consentimentos/page": [
-      "static/media/caa3a2e1cccd8315-s.p.16t1db8_9y2o~.woff2"
-    ],
-    "[project]/src/app/dashboard/escola/legal/page": [
-      "static/media/caa3a2e1cccd8315-s.p.16t1db8_9y2o~.woff2"
-    ],
-    "[project]/src/app/dashboard/escola/visao-geral/page": [
-      "static/media/caa3a2e1cccd8315-s.p.16t1db8_9y2o~.woff2"
-    ],
-    "[project]/src/app/dashboard/pais/consentimento/page": [
-      "static/media/caa3a2e1cccd8315-s.p.16t1db8_9y2o~.woff2"
-    ],
-    "[project]/src/app/dashboard/pais/page": [
-      "static/media/caa3a2e1cccd8315-s.p.16t1db8_9y2o~.woff2"
-    ],
-    "[project]/src/app/login/page": [
-      "static/media/caa3a2e1cccd8315-s.p.16t1db8_9y2o~.woff2"
-    ],
     "[project]/src/app/page": [
       "static/media/caa3a2e1cccd8315-s.p.16t1db8_9y2o~.woff2"
     ]
