@@ -1,1 +1,11 @@
-{}
+{
+  "/_not-found/page": "app/_not-found/page.js",
+  "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
+  "/dashboard/escola/consentimentos/page": "app/dashboard/escola/consentimentos/page.js",
+  "/dashboard/escola/legal/page": "app/dashboard/escola/legal/page.js",
+  "/dashboard/escola/visao-geral/page": "app/dashboard/escola/visao-geral/page.js",
+  "/dashboard/pais/consentimento/page": "app/dashboard/pais/consentimento/page.js",
+  "/dashboard/pais/page": "app/dashboard/pais/page.js",
+  "/login/page": "app/login/page.js",
+  "/page": "app/page.js"
+}
