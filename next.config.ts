@@ -1,8 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  experimental: {
-    runtime: "edge",
+  /* Configurações básicas para Cloudflare */
+  typescript: {
+    ignoreBuildErrors: false,
   },
 };
 
