@@ -1,16 +1,12 @@
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 
 export default async function Dashboard() {
-  const session = await getServerSession(authOptions);
-  // `session` will be `null` if the user is not signed in
-  return (
-    <section>
-      {session ? (
-        <p>Welcome back, {session.user?.name}!</p>
-      ) : (
-        <p>You need to sign in to see this page.</p>
-      )}
-    </section>
-  );
+  const session = await auth();
+  if (!session) redirect("/login");
+
+  const role = (session.user as any)?.role;
+  if (role === "ESCOLA") redirect("/dashboard/escola/visao-geral");
+  if (role === "PROFESSOR") redirect("/dashboard/professor/agenda");
+  redirect("/dashboard/aluno");
 }

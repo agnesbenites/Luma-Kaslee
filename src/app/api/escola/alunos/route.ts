@@ -1,12 +1,18 @@
-import { supabase } from '@/lib/supabase';
-import { NextResponse } from 'next/server';
+import { NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
+import { auth } from "@/auth";
 
 export async function GET() {
-  const { data, error } = await supabase
-    .from('alunos')
-    .select('id, nome, turma, data_nascimento, status_matricula');
+  const session = await auth();
+  if (!session || (session.user as any).role !== "ESCOLA") {
+    return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
+  }
+  const escolaId = (session.user as any).id;
 
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-  
-  return NextResponse.json(data);
+  const alunos = await prisma.aluno.findMany({
+    where: { turma: { escolaId } },
+    select: { id: true, nome: true, turmaId: true, criadoEm: true, consentimentoLgpd: true },
+  });
+
+  return NextResponse.json(alunos);
 }
