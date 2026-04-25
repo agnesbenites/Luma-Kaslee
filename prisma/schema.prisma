@@ -99,16 +99,20 @@ model SessaoBNCC {
 }
 
 model Material {
-  id          String    @id @default(cuid())
-  titulo      String
-  tipo        String
-  conteudo    String
-  componente  String?
-  serie       String?
-  professor   Professor @relation(fields: [professorId], references: [id])
-  professorId String
-  sessoes     Sessao[]
-  criadoEm    DateTime  @default(now())
+  id           String    @id @default(cuid())
+  titulo       String
+  tipo         String    // "PDF" | "DOCX" | "PPTX" | "IMAGEM"
+  conteudo     String    // mantido para compatibilidade
+  fileUrl      String?   // URL pública no Supabase Storage
+  filePath     String?   // caminho interno no bucket
+  fileMime     String?   // "application/pdf", etc.
+  fileTamanho  Int?      // bytes
+  componente   String?
+  serie        String?
+  professor    Professor @relation(fields: [professorId], references: [id])
+  professorId  String
+  sessoes      Sessao[]
+  criadoEm     DateTime  @default(now())
 }
 
 model Sessao {
