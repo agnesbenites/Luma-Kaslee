@@ -38,7 +38,7 @@ export async function GET() {
       },
     });
 
-    const eventos = atividades.map((a) => ({
+    const eventos = atividades.map((a: any) => ({
       id: a.id,
       titulo: a.titulo,
       descricao: a.descricao ?? null,
