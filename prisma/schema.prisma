@@ -56,6 +56,9 @@ model Professor {
   materiais           Material[]
   atividadesAgendadas AtividadeAgendada[]
   criadoEm            DateTime            @default(now())
+  materias  String[] @default([])
+  anos      String[] @default([])
+
 }
 
 model Aluno {
