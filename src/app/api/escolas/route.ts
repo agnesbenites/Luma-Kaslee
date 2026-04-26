@@ -1,17 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/auth";
+import { hash } from "bcryptjs";
 
 export async function POST(req: NextRequest) {
   try {
     const session = await auth();
     if (!session) return NextResponse.json({ error: "Não autorizado." }, { status: 401 });
 
-    const { nome, cnpj, cidade, estado } = await req.json();
-    if (!nome) return NextResponse.json({ error: "Nome obrigatório." }, { status: 400 });
+    const { nome, email, senha, cnpj, cidade, estado } = await req.json();
+    if (!nome || !email || !senha) {
+      return NextResponse.json({ error: "Nome, email e senha são obrigatórios." }, { status: 400 });
+    }
 
+    const senhaHash = await hash(senha, 10);
     const escola = await prisma.escola.create({
-      data: { nome, cnpj, cidade, estado },
+      data: { nome, email, senhaHash, cnpj, cidade, estado },
     });
     return NextResponse.json(escola, { status: 201 });
   } catch (error) {
