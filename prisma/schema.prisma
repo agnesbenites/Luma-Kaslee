@@ -7,15 +7,28 @@ datasource db {
 }
 
 model Escola {
-  id        String   @id @default(cuid())
+  id        String    @id @default(cuid())
   nome      String
-  email     String   @unique
+  email     String    @unique
   senhaHash String
-  cnpj      String?  @unique
+  cnpj      String?   @unique
   cidade    String?
   estado    String?
   turmas    Turma[]
-  criadoEm  DateTime @default(now())
+  convites  Convite[]
+  criadoEm  DateTime  @default(now())
+}
+
+model Convite {
+  id       String   @id @default(cuid())
+  token    String   @unique @default(cuid())
+  tipo     String
+  email    String?
+  usado    Boolean  @default(false)
+  expiraEm DateTime
+  escola   Escola   @relation(fields: [escolaId], references: [id])
+  escolaId String
+  criadoEm DateTime @default(now())
 }
 
 model Turma {
@@ -185,19 +198,19 @@ model ProgressoHabilidade {
 }
 
 model AtividadeAgendada {
-  id          String    @id @default(cuid())
-  titulo      String
-  descricao   String?
-  data        DateTime
-  status      String    @default("PLANEJADA")
-  turma       Turma     @relation(fields: [turmaId], references: [id])
-  turmaId     String
-  professor   Professor @relation(fields: [professorId], references: [id])
-  professorId String
-  sessao      Sessao?   @relation(fields: [sessaoId], references: [id])
-  sessaoId    String?
-  criadoEm     DateTime @default(now())
-  atualizadoEm DateTime @updatedAt
+  id           String    @id @default(cuid())
+  titulo       String
+  descricao    String?
+  data         DateTime
+  status       String    @default("PLANEJADA")
+  turma        Turma     @relation(fields: [turmaId], references: [id])
+  turmaId      String
+  professor    Professor @relation(fields: [professorId], references: [id])
+  professorId  String
+  sessao       Sessao?   @relation(fields: [sessaoId], references: [id])
+  sessaoId     String?
+  criadoEm     DateTime  @default(now())
+  atualizadoEm DateTime  @updatedAt
 }
 
 model GradeHoraria {
