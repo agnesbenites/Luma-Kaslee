@@ -17,7 +17,6 @@ export default withAuth(
 
 export const config = {
   matcher: [
-    /* Protege o dashboard, mas deixa a "/" (Landing Page) pública */
     "/dashboard/:path*",
     "/api/user/:path*",
   ],
