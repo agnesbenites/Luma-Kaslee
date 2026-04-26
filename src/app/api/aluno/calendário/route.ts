@@ -31,7 +31,7 @@ export async function GET() {
 
     const agora = new Date();
 
-    const eventos = sessoes.map((s: any, index) => {
+    const eventos = sessoes.map((s: any, index: number) => {
       const base = new Date(agora);
       base.setDate(base.getDate() + index);
       base.setHours(8 + (index % 5) * 2, 0, 0, 0);
