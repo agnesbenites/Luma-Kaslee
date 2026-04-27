@@ -230,3 +230,44 @@ model GradeHoraria {
   criadoEm     DateTime @default(now())
   atualizadoEm DateTime @updatedAt
 }
+
+model ProfessorPrivado {
+  id            String    @id @default(cuid())
+  nome          String
+  email         String    @unique
+  senhaHash     String
+  area          String?   // "HUMANAS" | "EXATAS" | "LINGUAS" | "TODAS"
+  bio           String?
+  plano         String    @default("STARTER") // "STARTER" | "PRO" | "ILIMITADO"
+  stripeCustomerId     String?
+  stripeSubscriptionId String?
+  planoStatus   String    @default("TRIAL") // "TRIAL" | "ATIVO" | "CANCELADO" | "INADIMPLENTE"
+  trialExpiraEm DateTime?
+  alunos        AlunoPrivado[]
+  materiais     MaterialPrivado[]
+  criadoEm      DateTime  @default(now())
+}
+
+model AlunoPrivado {
+  id          String           @id @default(cuid())
+  nome        String
+  email       String           @unique
+  senhaHash   String
+  professor   ProfessorPrivado @relation(fields: [professorId], references: [id])
+  professorId String
+  criadoEm    DateTime         @default(now())
+}
+
+model MaterialPrivado {
+  id          String           @id @default(cuid())
+  titulo      String
+  tipo        String
+  fileUrl     String?
+  filePath    String?
+  fileMime    String?
+  fileTamanho Int?
+  componente  String?
+  professor   ProfessorPrivado @relation(fields: [professorId], references: [id])
+  professorId String
+  criadoEm    DateTime         @default(now())
+}

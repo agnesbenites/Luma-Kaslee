@@ -135,15 +135,21 @@ export default function LoginPage() {
             </p>
           )}
 
-          {/* Para professor e família, instrução sobre convite */}
+          {/* Para professor e família, instrução sobre convite e cadastro de professor particular */}
           {(role === "PROFESSOR" || role === "FAMILIA") && (
-            <p className="text-center text-xs mt-5" style={{ color: "#C4B8F0" }}>
-              Primeiro acesso? Use o{" "}
-              <span style={{ color: "#F5C542" }} className="font-bold">
-                link de convite
-              </span>{" "}
-              enviado pela sua escola.
-            </p>
+            <div className="mt-5 space-y-2 text-center">
+              <p className="text-xs" style={{ color: "#C4B8F0" }}>
+                Professor vinculado a escola? Use o{" "}
+                <span style={{ color: "#F5C542" }} className="font-bold">link de convite</span>{" "}
+                enviado pela sua escola.
+              </p>
+              <p className="text-xs" style={{ color: "#C4B8F0" }}>
+                Professor particular?{" "}
+                <Link href="/cadastro/professor" className="font-bold hover:underline" style={{ color: "#F5C542" }}>
+                  Criar conta grátis
+                </Link>
+              </p>
+            </div>
           )}
         </div>
       </div>
