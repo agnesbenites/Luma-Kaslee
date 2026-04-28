@@ -9,26 +9,27 @@ const PLANOS = [
   {
     id: "STARTER",
     nome: "Starter",
-    preco: "R$ 29,90",
+    preco: "R$ 49,90",
     periodo: "/mês",
     icon: <Zap size={22} />,
     cor: "#8B5CF6",
     destaque: false,
     limite: "até 35 alunos",
-    excedente: "R$ 1,50/aluno extra",
+    excedente: "R$ 2,00/aluno extra",
     itens: [
       "Até 35 alunos simultâneos",
       "IA socrática em todas as aulas",
       "Upload de materiais próprios",
       "Relatório pós-sessão",
-      "R$ 1,50 por aluno excedente/mês",
+      "R$ 2,00 por aluno excedente/mês",
       "Suporte por e-mail",
+      "30 dias grátis para testar",
     ],
   },
   {
     id: "PRO",
     nome: "Pro",
-    preco: "R$ 59,90",
+    preco: "R$ 89,90",
     periodo: "/mês",
     icon: <Star size={22} />,
     cor: "#F5C542",
@@ -42,12 +43,13 @@ const PLANOS = [
       "Relatório pós-sessão com IA",
       "Trilha de desenvolvimento docente",
       "Suporte prioritário",
+      "30 dias grátis para testar",
     ],
   },
   {
     id: "ILIMITADO",
     nome: "Ilimitado",
-    preco: "R$ 89,90",
+    preco: "R$ 149,90",
     periodo: "/mês",
     icon: <Infinity size={22} />,
     cor: "#34D399",
@@ -61,6 +63,7 @@ const PLANOS = [
       "Relatório pós-sessão com IA",
       "Trilha de desenvolvimento docente",
       "Suporte VIP + onboarding",
+      "30 dias grátis para testar",
     ],
   },
 ];
@@ -94,12 +97,16 @@ export default function PlanosPage() {
           {isNovo ? (
             <>
               <h2 className="text-3xl font-bold text-white mt-4">Conta criada! Escolha seu plano.</h2>
-              <p className="mt-2" style={{ color: "#C4B8F0" }}>Você tem 30 dias grátis. Escolha o plano para continuar após o trial.</p>
+              <p className="mt-2" style={{ color: "#C4B8F0" }}>
+                Você tem 30 dias grátis. Escolha o plano para continuar após o trial.
+              </p>
             </>
           ) : (
             <>
               <h2 className="text-3xl font-bold text-white mt-4">Planos para Professores</h2>
-              <p className="mt-2" style={{ color: "#C4B8F0" }}>Escolha o plano ideal para o seu volume de alunos.</p>
+              <p className="mt-2" style={{ color: "#C4B8F0" }}>
+                Escolha o plano ideal para o seu volume de alunos.
+              </p>
             </>
           )}
         </div>
@@ -155,18 +162,62 @@ export default function PlanosPage() {
                   color: plano.destaque ? "#2D1B69" : "#fff",
                   border: plano.destaque ? "none" : "1px solid rgba(255,255,255,0.2)",
                 }}>
-                {carregando === plano.id ? <><Loader2 size={16} className="animate-spin" /> Aguarde...</> : "Assinar agora →"}
+                {carregando === plano.id
+                  ? <><Loader2 size={16} className="animate-spin" /> Aguarde...</>
+                  : "Assinar agora →"}
               </button>
             </div>
           ))}
         </div>
 
-        <p className="text-center text-xs mt-8" style={{ color: "#4A3880" }}>
-          Após o trial de 30 dias, o plano escolhido será cobrado automaticamente.
-          Cancele quando quiser.{" "}
-          <Link href="/login" className="hover:underline" style={{ color: "#8B5CF6" }}>
-            Já tenho conta
-          </Link>
+        {/* Tabela escolas */}
+        <div className="mt-16">
+          <h3 className="text-2xl font-bold text-white text-center mb-2">Planos para Escolas</h3>
+          <p className="text-center text-sm mb-8" style={{ color: "#C4B8F0" }}>
+            Cobrado por aluno/ano — quanto mais alunos, menor o custo por cabeça.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+            {[
+              {
+                nome: "Por Área",
+                preco: "R$ 18",
+                unidade: "/aluno/ano",
+                desc: "1 área curricular",
+                areas: "Exatas, Humanas ou Línguas",
+                cor: "#8B5CF6",
+              },
+              {
+                nome: "Completo",
+                preco: "R$ 32",
+                unidade: "/aluno/ano",
+                desc: "Todas as matérias",
+                areas: "BNCC completa + IA para todos os professores",
+                cor: "#F5C542",
+              },
+            ].map((p) => (
+              <div key={p.nome} className="rounded-2xl p-6"
+                style={{ background: "rgba(61,43,121,0.6)", border: "1px solid #4A3880", backdropFilter: "blur(12px)" }}>
+                <h4 className="font-bold text-white text-lg mb-1">{p.nome}</h4>
+                <p className="text-xs mb-4" style={{ color: "#C4B8F0" }}>{p.areas}</p>
+                <div className="mb-4">
+                  <span className="text-3xl font-bold text-white">{p.preco}</span>
+                  <span className="text-sm" style={{ color: "#C4B8F0" }}>{p.unidade}</span>
+                </div>
+                <Link href="/contato"
+                  className="block w-full py-2.5 rounded-xl font-bold text-sm text-center transition-all hover:opacity-90"
+                  style={{ background: "rgba(255,255,255,0.1)", color: "#fff", border: "1px solid rgba(255,255,255,0.2)" }}>
+                  Falar com comercial →
+                </Link>
+              </div>
+            ))}
+          </div>
+          <p className="text-center text-xs mt-4" style={{ color: "#4A3880" }}>
+            Redes com 200+ escolas: contrato anual negociado. Entre em contato.
+          </p>
+        </div>
+
+        <p className="text-center text-xs mt-10" style={{ color: "#4A3880" }}>
+          Cancele quando quiser · Sem fidelidade · Dados protegidos pela LGPD
         </p>
       </div>
     </div>
