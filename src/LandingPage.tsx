@@ -540,7 +540,7 @@ function SectionHome({ setAba }: { setAba: (a: Aba) => void }) {
         </div>
       </section>
 
-      {/* CTA Final */}
+      {/* CTA Final - SUBSTITUÍDO */}
       <section style={{
         padding: "8rem 2rem",
         background: "#2D1B69",
@@ -557,24 +557,44 @@ function SectionHome({ setAba }: { setAba: (a: Aba) => void }) {
           <p style={{ fontSize: "1.1rem", color: "rgba(255,255,255,0.6)", maxWidth: "480px", margin: "0 auto 3rem", lineHeight: 1.65 }}>
             Do 6º ano ao Ensino Médio — a Luma acompanha o aluno por 7 anos, construindo pensamento crítico sem substituir o professor.
           </p>
-          <Link
-            href="/login"
-            style={{
-              display: "inline-block",
-              padding: "1rem 2.5rem",
-              background: "#F5C542",
-              color: "#2D1B69",
-              borderRadius: "999px",
-              fontFamily: "'Georgia', serif",
-              fontStyle: "italic",
-              fontSize: "1.05rem",
-              fontWeight: 700,
-              textDecoration: "none",
-              boxShadow: "0 8px 32px rgba(245,197,66,0.3)",
-            }}
-          >
-            Começar agora →
-          </Link>
+          <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
+            <Link
+              href="/cadastro/professor"
+              style={{
+                display: "inline-block",
+                padding: "1rem 2.5rem",
+                background: "#F5C542",
+                color: "#2D1B69",
+                borderRadius: "999px",
+                fontFamily: "'Georgia', serif",
+                fontStyle: "italic",
+                fontSize: "1.05rem",
+                fontWeight: 700,
+                textDecoration: "none",
+                boxShadow: "0 8px 32px rgba(245,197,66,0.3)",
+              }}
+            >
+              Começar agora →
+            </Link>
+            <Link
+              href="/planos"
+              style={{
+                display: "inline-block",
+                padding: "1rem 2.5rem",
+                background: "transparent",
+                color: "rgba(255,255,255,0.7)",
+                borderRadius: "999px",
+                fontFamily: "'Georgia', serif",
+                fontStyle: "italic",
+                fontSize: "1.05rem",
+                fontWeight: 500,
+                textDecoration: "none",
+                border: "1px solid rgba(255,255,255,0.2)",
+              }}
+            >
+              Ver planos
+            </Link>
+          </div>
         </Reveal>
       </section>
     </div>
