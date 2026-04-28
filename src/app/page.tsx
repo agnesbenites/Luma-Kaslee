@@ -1,14 +1,17 @@
 import { auth } from "@/auth";
-import { redirect } from "next/navigation";
 import LandingPage from "@/LandingPage";
 
 export default async function HomePage() {
   const session = await auth();
+  const role = (session?.user as any)?.role;
 
-  if (!session) return <LandingPage />;
+  let dashboardUrl = null;
+  if (session) {
+    if (role === "ESCOLA") dashboardUrl = "/dashboard/escola/visao-geral";
+    else if (role === "PROFESSOR") dashboardUrl = "/dashboard/professor/agenda";
+    else if (role === "ALUNO") dashboardUrl = "/dashboard/aluno";
+    else dashboardUrl = "/dashboard/pais";
+  }
 
-  const role = (session.user as any)?.role;
-  if (role === "ESCOLA") redirect("/dashboard/escola/visao-geral");
-  else if (role === "PROFESSOR") redirect("/dashboard/professor/agenda");
-  else redirect("/dashboard");
+  return <LandingPage dashboardUrl={dashboardUrl} />;
 }

@@ -43,6 +43,10 @@ function Reveal({ children, delay = 0, className = "" }: { children: React.React
 export default function LandingPage() {
   const [abaAtiva, setAbaAtiva] = useState<Aba>("home");
   const [scrolled, setScrolled] = useState(false);
+  
+  // Simulação de estado de autenticação - substituir pela lógica real do seu app
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const dashboardUrl = isLoggedIn ? "/dashboard" : null;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -123,24 +127,45 @@ export default function LandingPage() {
               {aba}
             </button>
           ))}
-          <Link
-            href="/login"
-            style={{
-              padding: "0.45rem 1.3rem",
-              borderRadius: "999px",
-              fontFamily: "'Georgia', serif",
-              fontStyle: "italic",
-              fontSize: "0.88rem",
-              fontWeight: 600,
-              letterSpacing: "0.03em",
-              background: isDark ? "#F5C542" : "#2D1B69",
-              color: isDark ? "#1A0A3D" : "#FFFFFF",
-              textDecoration: "none",
-              transition: "opacity 0.2s",
-            }}
-          >
-            Entrar
-          </Link>
+          
+          {/* Botão condicional - Login ou Dashboard */}
+          {dashboardUrl ? (
+            <Link
+              href={dashboardUrl}
+              style={{
+                padding: "0.45rem 1.3rem",
+                borderRadius: "999px",
+                fontFamily: "'Georgia', serif",
+                fontStyle: "italic",
+                fontSize: "0.88rem",
+                fontWeight: 600,
+                letterSpacing: "0.03em",
+                background: isDark ? "#F5C542" : "#2D1B69",
+                color: isDark ? "#1A0A3D" : "#FFFFFF",
+                textDecoration: "none",
+              }}
+            >
+              Ir para o painel →
+            </Link>
+          ) : (
+            <Link
+              href="/login"
+              style={{
+                padding: "0.45rem 1.3rem",
+                borderRadius: "999px",
+                fontFamily: "'Georgia', serif",
+                fontStyle: "italic",
+                fontSize: "0.88rem",
+                fontWeight: 600,
+                letterSpacing: "0.03em",
+                background: isDark ? "#F5C542" : "#2D1B69",
+                color: isDark ? "#1A0A3D" : "#FFFFFF",
+                textDecoration: "none",
+              }}
+            >
+              Entrar
+            </Link>
+          )}
         </div>
       </nav>
 
@@ -540,7 +565,7 @@ function SectionHome({ setAba }: { setAba: (a: Aba) => void }) {
         </div>
       </section>
 
-      {/* CTA Final - SUBSTITUÍDO */}
+      {/* CTA Final */}
       <section style={{
         padding: "8rem 2rem",
         background: "#2D1B69",

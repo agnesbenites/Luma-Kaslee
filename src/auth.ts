@@ -31,12 +31,19 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
   ],
   callbacks: {
     async jwt({ token, user }) {
-      if (user) {
-        token.id = (user as any).id;
-        token.role = (user as any).role;
-      }
-      return token;
-    },
+  if (user) {
+    token.id = (user as any).id;
+    token.role = (user as any).role;
+    // Registra sessão respeitando o limite por role
+    const { registrarSessao } = await import("@/lib/session-limit");
+    await registrarSessao(
+      (user as any).id,
+      (user as any).role,
+      token.jti ?? (user as any).id,
+    );
+  }
+  return token;
+},
     async session({ session, token }) {
       if (session.user) {
         (session.user as any).id = token.id;

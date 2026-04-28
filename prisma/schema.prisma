@@ -271,3 +271,15 @@ model MaterialPrivado {
   professorId String
   criadoEm    DateTime         @default(now())
 }
+
+model UserSession {
+  id         String   @id @default(cuid())
+  userId     String
+  userRole   String
+  token      String   @unique
+  deviceInfo String?
+  criadoEm  DateTime @default(now())
+  expiraEm  DateTime
+
+  @@index([userId])
+}
