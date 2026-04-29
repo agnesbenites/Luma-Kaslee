@@ -36,7 +36,11 @@ export default function LoginPage() {
       if (role === "ESCOLA") {
         window.location.href = "/dashboard/escola/visao-geral";
       } else if (role === "PROFESSOR") {
+        if (role === "PROFESSOR_PRIVADO") {
+        window.location.href = "/dashboard/professor-privado";
+      } else {
         window.location.href = "/dashboard/professor/agenda";
+      }
       } else if (role === "ALUNO") {
         window.location.href = "/dashboard/aluno";
       } else {
