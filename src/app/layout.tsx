@@ -6,8 +6,8 @@ import { Providers } from "./providers";
 const geist = Geist({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Luma — Aprendizado Socrático",
-  description: "A Luma não tem opinião. Ela te ajuda a ter a sua.",
+  title: "Luma — Aprenda a pensar, não a decorar",
+  description: "Aprenda a pensar, não a decorar. IA educacional socrática para o ensino fundamental e médio.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
