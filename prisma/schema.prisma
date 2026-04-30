@@ -295,3 +295,13 @@ model LogSeguranca {
   resolvido       Boolean  @default(false)
   criadoEm        DateTime @default(now())
 }
+
+model Parecer {
+  id        String   @id @default(cuid())
+  alunoId   String   @unique
+  turmaId   String
+  texto     String
+  status    String   @default("APROVADO")
+  criadoEm  DateTime @default(now())
+  atualizadoEm DateTime @updatedAt
+}

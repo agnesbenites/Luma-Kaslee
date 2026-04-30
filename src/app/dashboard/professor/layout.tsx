@@ -1,64 +1,28 @@
-import { auth } from "@/lib/auth";
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import { signOut } from "@/auth";
+import ProfessorSidebarClient from "@/components/professor/ProfessorSidebarClient";
 
-export default async function ProfessorLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default async function ProfessorLayout({ children }: { children: React.ReactNode }) {
   const session = await auth();
+  if (!session || (session.user as any).role !== "PROFESSOR") redirect("/login");
 
-  if (!session?.user?.id) redirect("/login");
-
-  const professorId = session.user.id;
-
-  try {
-    const professor = await prisma.professor.findUnique({
-      where: { id: professorId },
-    });
-    if (!professor) redirect("/login");
-  } catch (error) {
-    console.error("Erro ao verificar professor:", error);
-    redirect("/login");
-  }
+  const professorId = (session.user as any).id;
+  const professor = await prisma.professor.findUnique({ where: { id: professorId } });
+  if (!professor) redirect("/login");
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="border-b bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between">
-            <Link href="/dashboard/professor" className="flex items-center gap-2">
-              <div className="text-xl font-bold text-[#2D1B69]">Luma</div>
-            </Link>
-
-            <div className="flex items-center gap-4">
-              <nav className="flex space-x-6">
-                <Link href="/dashboard/professor/agenda" className="text-sm font-medium text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md">
-                  Agenda
-                </Link>
-                <Link href="/dashboard/professor/turmas" className="text-sm font-medium text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md">
-                  Turmas
-                </Link>
-                <Link href="/dashboard/professor/atividades" className="text-sm font-medium text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md">
-                  Atividades
-                </Link>
-                <Link href="/dashboard/professor/grade" className="text-sm font-medium text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md">
-                  Grade
-                </Link>
-              </nav>
-
-              <Link href="/api/auth/signout" className="text-sm font-medium text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md">
-                Sair
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {children}
+    <div className="flex min-h-screen bg-[#F4F1FB]">
+      <ProfessorSidebarClient />
+      <main className="flex-1 overflow-y-auto">
+        <header className="h-16 border-b border-gray-200 bg-white/50 backdrop-blur-md flex items-center px-8 sticky top-0 z-10">
+          <p className="text-sm text-gray-500 font-medium">
+            Olá, {professor.nome.split(" ")[0]} · Ambiente do Professor
+          </p>
+        </header>
+        <div className="p-8">{children}</div>
       </main>
     </div>
   );
